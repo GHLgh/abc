@@ -1,8 +1,24 @@
 # A List of Ideas that I Thought about the Project 
 `The one on top should be the newest and the one is using for the project for now`
+###1/30/2017
+* Since GitHub will remove some kinds of tags when parsing the markdown file, perhaps we can use a server with RESTful API for changing content of target markdown file. And actually using those tags as identifier for the server to local the position for changes.<br>(ex. \<script src="someIdentifier"\>some source file\</script\>  \<p\>place holder for possible content\</p\>)
+  * This is a trick for GitHub's markup tool, but it should also work on normal tool for parsing and serving markdown file since unaccessable url shouldn't harm anything (although sercurity factor hasn't been considered).
+* Build an application on top of GitHub's APIs for getting content of source markdown files and updating content of target markdown file (and maybe automatically run the process using "hook" API inspired from [travis-ci](travis-ci.org))
+  * Need to learn more about the APIs by testing with [postman](https://www.getpostman.com/), because I am not one hundred percent sure about how those APIs work for now.
+* Workflow
+  * The application will be trigger by a request (or by hook)
+  * Analyze the request about what the target file is and get content of the file by [get-contents API](https://developer.github.com/v3/repos/contents/#get-contents)
+  * Parse the file with predefined identifiers and use get-contents API for receiving content of source files which the identifiers specify
+  * Change the content of target file (where the server has a copy from step 2) and use [update-a-file API](https://developer.github.com/v3/repos/contents/#update-a-file) to update the target file in GitHub repository
+  * The target file should be served with updated content in GitHub
+
 ###1/26/2017
+* Since GitHub will remove some kinds of tags when parsing the markdown file, perhaps we can use a server with RESTful API for changing content of target markdown file. And actually using those tags as identifier for the server to local the position for changes.<br>(ex. \<script src="someIdentifier"\>\</script\>  \<p\>place holder for possible content\</p\>)
+  * This is a trick for GitHub's markup tool, but it should also work on normal tool for parsing and serving markdown file since unaccessable url shouldn't harm anything (although sercurity factor hasn't been considered).
+* Build an application on top of GitHub's APIs for getting content of source markdown files and updating content of target markdown file (and maybe automatically run the process using "hook" API inspired from [travis-ci](travis-ci.org))
+  * Need to learn more about the APIs by testing with [postman](https://www.getpostman.com/), because I am not one hundred percent sure about how those APIs work for now.
 
 ###1/25/2017
 * <del>Because markdown file also accept HTML syntax, it should be possible to insert script within markdown file and when the markdown parser
 transform the file into HTML format, the script should be able to run and change the display of the file.</del></br>(**the parser that GitHub use will remove "things[tag] that could harm you and your kin" which include \<script\>**)
-* Using JavaScript as DOM tool to change the elements in markdown file
+* Using JavaScript as DOM tool to change the elements in markdown file such that js can retrieve content from specified markdown files and change the content in readme.md file (or other target file) accordingly.
