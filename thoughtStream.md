@@ -1,5 +1,14 @@
 # A List of Ideas that I Thought about the Project 
 `The one on top should be the newest and the one is using for the project for now`
+###2/25/2017
+UPDATE! The idea is the same as the last update (1/30/2017)
+
+Struggles on how to:
+> * Analyze the request about what the target file is and get content of the file by [get-contents API](https://developer.github.com/v3/repos/contents/#get-contents)
+> * Parse the file with predefined identifiers and use get-contents API for receiving content of source files which the identifiers specify
+> * Change the content of target file (where the server has a copy from step 2) and use [update-a-file API](https://developer.github.com/v3/repos/contents/#update-a-file) to update the target file in GitHub repository
+
+
 ###1/30/2017
 * Since GitHub will remove some kinds of tags when parsing the markdown file, perhaps we can use a server with RESTful API for changing content of target markdown file. And actually using those tags as identifier for the server to local the position for changes.<br>(ex. \<script src="someIdentifier"\>some source file\</script\>  \<p\>place holder for possible content\</p\>)
   * This is a trick for GitHub's markup tool, but it should also work on normal tool for parsing and serving markdown file since unaccessable url shouldn't harm anything (although sercurity factor hasn't been considered).
