@@ -7,36 +7,35 @@ var hostname = 'api.github.com';
 var userAgent = 'GHLgh-MarkItDown'
 
 app.get('/echo/:user/:repo/:file', function (req, res) {
-    var filePath = util.format('repos/%s/%s/contents/%s',req.params.user,req.params.repo,req.params.file);
+    var filePath = util.format('/repos/%s/%s/contents/%s',req.params.user,req.params.repo,req.params.file);
     var options = {
         host : hostname,
         path : filePath,
         headers : {
             'User-Agent' : userAgent,
-            'content-type': 'application/json'
         }
     };
+
     console.log(options);
     var bodyChunks = [];
-    var body;
-    var gitReq = https.get(options, function(res){
-        /*res.on('data', function(chunk) {
-        // You can process streamed parts here...
-        bodyChunks.push(chunk);
-      }).on('end', function() {
-        var body = Buffer.concat(bodyChunks);
+    var body = '';
+    var gitReq = https.request(options, function(response){
+        response.setEncoding('utf8');
+        response.on('data', function(data){
+            body += data;
+            //bodyChunks.push(data);
+        }).on('end', function() {
+        //body = JSON.parse(body);
         console.log('BODY: ' + body);
         // ...and/or process the entire body here.
-      })*/
-        res.on('data', function(data){
-            console.log(data)
-        });
-        body = res;
+      });
     });
 
     gitReq.on('error',function(e){
         console.log('ERROR: ' + e.message);
+        //console.log(options)
     });
+    gitReq.end();
     res.send(body);
 })
 
